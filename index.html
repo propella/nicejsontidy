@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Nice JSON formatter</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <textarea rows="20" style="width: 100%" v-model="source"></textarea>
+        <textarea rows="20" style="width: 100%">{{formatted}}</textarea>
+    </div>
+    <script>
+        "use strict";
+
+        const App = new Vue({
+            el: "#app",
+            data: {
+                source: "{ hello: 'world' }",
+            },
+            computed: {
+                formatted: function () {
+                    const expr = Function(`"use strict";return ${this.source}`)();
+                    return JSON.stringify(expr, null, 2);
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
